@@ -14,3 +14,4 @@ steps:
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=kb-prod-cluster'
+images: ['us.gcr.io/$PROJECT_ID/nginximage:$SHORT_SHA']
