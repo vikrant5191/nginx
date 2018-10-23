@@ -12,7 +12,7 @@ RUN apt-get install -y curl
 
 RUN rm -v /etc/nginx/nginx.conf
 
-# Copyy a configuration file from the current directory
+# Cosspyy a configuration file from the current directory
 ADD nginx.conf /etc/nginx/
 
 ADD dist/ /usr/share/nginx/html/
