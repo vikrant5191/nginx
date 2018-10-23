@@ -1,0 +1,17 @@
+steps:
+- id: 'build nginx image'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'us.gcr.io/$PROJECT_ID/nginximage:$SHORT_SHA', '.']
+- id: 'push nginx image'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us.gcr.io/$PROJECT_ID/nginximage:$SHORT_SHA']
+- id: kubectl-apply
+ args:
+  - 'set'
+  - 'image'
+  - 'deployment/nginx'
+  - 'my-container=gcr.io/$PROJECT_ID/nginximage:$SHORT_SHA
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=kb-prod-cluster'
+images: ['us.gcr.io/$PROJECT_ID/nginximage:$SHORT_SHA']
