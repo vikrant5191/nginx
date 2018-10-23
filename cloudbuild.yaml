@@ -10,7 +10,7 @@ steps:
   args: ['bash','-c','sed -i "s,NGINX_IMAGE_NAME,us.gcr.io/$PROJECT_ID/nginximage:$SHORT_SHA," *.yaml']
 - id: kubectl-apply
   name: 'gcr.io/cloud-builders/kubectl'
-  args: ['apply', '-f', 'nginx.yaml']
+  args: ['apply', '-f', '/workspace/nginx.yaml']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=kb-prod-cluster'
