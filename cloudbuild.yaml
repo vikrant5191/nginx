@@ -1,14 +1,14 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ["build", "-t", "us.gcr.io/$PROJECT_ID/nginximage:$REVISION_ID", "."]
+  args: ["build", "-t", "gcr.io/$PROJECT_ID/nginximage:$REVISION_ID", "."]
 - name: 'gcr.io/cloud-builders/docker'
-  args: ["push", "us.gcr.io/$PROJECT_ID/nginximage:$REVISION_ID"]
+  args: ["push", "gcr.io/$PROJECT_ID/nginximage:$REVISION_ID"]
 - name: 'gcr.io/cloud-builders/kubectl'
   args:
   - 'set'
   - 'image'
   - 'deployment/nginx'
-  - 'nginximage=us.gcr.io/$PROJECT_ID/nginximage:$REVISION_ID'
+  - 'nginximage=gcr.io/$PROJECT_ID/nginximage:$REVISION_ID'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=kb-prod-cluster'
