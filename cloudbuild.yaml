@@ -8,7 +8,7 @@ steps:
   - 'set'
   - 'image'
   - 'deployment/nginx'
-  - 'nginx=gcr.io/$PROJECT_ID/nginximage:$REVISION_ID'
+  - 'nginximage=gcr.io/$PROJECT_ID/nginximage:$REVISION_ID'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=kb-prod-cluster'
