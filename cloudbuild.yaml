@@ -1,0 +1,23 @@
+steps:
+- id: 'build nginx image'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/$REPO_NAME/$BRANCH_NAME:$SHORT_SHA', '.']
+- id: 'push nginx image'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'eu.gcr.io/$PROJECT_ID/$REPO_NAME/$BRANCH_NAME:$SHORT_SHA']
+- id: 'set nginx image in yamls'
+  name: 'ubuntu'
+  args: ['bash','-c','sed -i "s,NGINX_IMAGE_NAME,eu.gcr.io/$PROJECT_ID/$REPO_NAME/$BRANCH_NAME:$SHORT_SHA," *.yaml']
+- id: kubectl-apply
+  name: 'gcr.io/cloud-builders/kubectl'
+  args: ['apply', '-f', 'nginx.yaml']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=kb-prod-cluster'
+- id: kubectl-apply-ingress
+  name: 'gcr.io/cloud-builders/kubectl'
+  args: ['apply', '-f', 'ingress.yaml']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-d'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=test-cluster'  
+images: ['eu.gcr.io/$PROJECT_ID/$REPO_NAME/$BRANCH_NAME:$SHORT_SHA']
