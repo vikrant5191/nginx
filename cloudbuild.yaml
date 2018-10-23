@@ -1,7 +1,7 @@
 steps:
 - id: 'build nginx image'
   name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us.gcr.io/$PROJECT_ID/nginximage/$BRANCH_NAME:$SHORT_SHA', '.']
+  args: ['build', '-t', 'us.gcr.io/$PROJECT_ID/nginximage:$SHORT_SHA', '.']
 - id: 'push nginx image'
   name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us.gcr.io/$PROJECT_ID/nginximage/$BRANCH_NAME:$SHORT_SHA']
+  args: ['push', 'us.gcr.io/$PROJECT_ID/nginximage:$SHORT_SHA']
